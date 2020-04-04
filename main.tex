@@ -1,0 +1,175 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{minted}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+ 
+\renewcommand\lstlistingname{High Performance Computing}
+\renewcommand\lstlistlistingname{High Performance Computing}
+\def\lstlistingautorefname{HPC}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines, 
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{High Performance Computing}
+\newcommand\hwnumber{1}                  % <-- homework number
+\newcommand\NetIDa{amr1215}           % <-- NetID of person #1
+\newcommand\NetIDb{Agnitha Mohan Ram}           % <-- NetID of person #2 (Comment this line out for problem sets)
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+\chead{\textbf{Assignment 3}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+	
+
+{\underline{System and Compiler Specifications:}} \\
+
+\begin{tabular}{ |c|c| } 
+ \hline
+ Operating System & macOS Catalina  \\
+ \hline
+ Processor & 1.4 GHz Quad-Core Intel Core i5 \\
+ \hline
+ Memory & 8 GB 2133 MHz LPDDR3  \\ 
+ \hline 
+Compiler version & Apple clang version 11.0.0 \\
+
+ \hline
+ Max Memory Bandwidth of processor & 37.5 GB/s \\
+ \hline
+ Gflops per core & 4.83	Gflops/core\\
+ \hline
+ Gflops per computer & 38.55 Gflops/computer\\
+ \hline
+\end{tabular}
+\\\\\\
+\underline{\textbf{1. Pitch your final project}} \\\\
+Submitted via email. \\
+\underline{Title:} Parallelization of All-Pairs-Shortest-Path Algorithms in Unweighted Graphs \\
+\underline{Team members:} \\
+Agnitha Mohan Ram - amr1215 \\
+Jude Naveen Raj Ilango - jni215\\
+
+\underline{\textbf{2. Approximating Special Functions Using Taylor Series \& Vectorization - Extra Credit}} \\\\
+\underline{Derivation for extra credit:}  \\
+General formulae: \\
+1) $e^{i\theta} = \cos{\theta} +  i\sin{\theta}$ \\
+2) $e^{i(\theta + \frac{\pi}{2})}$ =  $ie^{i\theta}$
+\begin{enumerate}
+    \item $\sin{(\theta + \frac{\pi}{2})}$ \\
+    $\Rightarrow \cos{(\theta + \frac{\pi}{2})} + i\sin{(\theta + \frac{\pi}{2})} = i(\cos{\theta} + i\sin{\theta}) $ \\
+    $\Rightarrow -\sin{\theta} + i\sin{(\theta + \frac{\pi}{2})} = i\cos{\theta} - \sin{\theta} $ \\
+    $\Rightarrow \sin{(\theta + \frac{\pi}{2})} = \cos{\theta}$
+    
+    \item $\sin{(\theta + \frac{\pi}{2} + \frac{\pi}{2})}$ \\ 
+    $\Rightarrow e^{(\theta +  \frac{\pi}{2} +  \frac{\pi}{2})} = ie^{(\theta + \frac{\pi}{2}) } = -e^{i\theta}$ \\
+    $\Rightarrow \cos{(\theta + \pi )} + i\sin{(\theta + \pi)} = -\cos{\theta}  -i\sin{\theta}$ \\
+    $\Rightarrow -cos{\theta} + i\sin{(\theta + \pi)} = -\cos{\theta}  -i\sin{\theta}$\\
+    $\Rightarrow \sin{(\theta + \pi)}  = -\sin{\theta}$
+    
+    \item $\sin{(\theta + \frac{\pi}{2} + \frac{\pi}{2} +\frac{\pi}{2} )}$\\
+    $\Rightarrow e^{(\theta + \frac{3\pi}{2})} = ie^{(\theta + \pi)} = -e^{(\theta + \frac{\pi}{2})} = -ie^{i\theta}$ \\
+    $\Rightarrow \cos{(\theta + \frac{3\pi}{2})} +  \sin{(\theta + \frac{3\pi}{2})} = -i(\cos{\theta} + i\sin{\theta}) $ \\
+    $\Rightarrow \sin{\theta} + i\sin{(\theta + \frac{3\pi}{2})} = -i\cos{\theta} + \sin{\theta}$ \\
+    $\Rightarrow \sin{(\theta + \frac{3\pi}{2})} = -\cos{\theta}$
+    
+    
+\end{enumerate}
+
+\textbf{Summary} \\
+\begin{tabular}{ |c|c| } 
+ \hline
+ $\sin{\theta}$ &  $\sin{\theta}$ \\
+  & \\
+ \hline
+ $\sin{(\theta + \frac{\pi}{2})}$ &  $\cos{\theta}$\\
+  & \\
+ \hline
+  $\sin{(\theta + \pi)}$& $ -\sin{\theta}$  \\ 
+   & \\
+ \hline 
+ $\sin{(\theta + \frac{3\pi}{2})}$ & $ -\cos{\theta}$ \\
+ & \\
+\hline
+
+\end{tabular}
+\\\\
+
+Cosine using taylor series: \\
+$\cos{x} = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \frac{x^8}{8!} .....   $ \\
+By using the information given above its possible to efficiently calculate the value of sin for intervals outside of $[-\frac{\pi}{4} , \frac{\pi}{4}]$ \\
+
+The code for this is in sin4\_taylor\_symmetry and sin4\_taylor\_symmetry\_vec.  \\
+Although I could get a better accuracy with these functions, I couldn't get a good running time due to the presence of if statements. The vectorised version using vec class for the extra credit is comparatively slow due to the presence of conditional statements. \\\\
+\textbf{To check this, line 261 in the fast-sin code has to be commented out and 262 has to be uncommented. The output indicates the accuracy and running time of these methods} \\\\
+\newpage
+\underline{\textbf{3. Parallel Scan in OpenMP}} \\\\
+Ran the program on the CIMS machine:  \\\\
+\begin{tabular}{ |c|c| } 
+ \hline
+ Operating System & CentOS Linux 7  \\
+ \hline
+ Processor & AMD Opteron 63xx\\
+ \hline
+ 
+ Number of cores & 4\\
+ \hline
+\end{tabular} \\\\\\
+\underline{Recorded time vs number of threads} \\\\
+
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ Number of threads & Time taken & Error \\
+ \hline\hline
+  1&0.988578s&0 \\
+ \hline
+ 2&0.523527s&0\\
+ \hline 
+ 3&0.368211s&0\\
+ \hline
+  4&0.346474s&0\\
+ \hline
+  8&0.388776s&0\\
+ \hline
+  16&0.307008s&0\\
+ \hline
+  32&0.365714s&0\\
+ \hline
+\end{tabular} \\\\\\
+
+\end{document}
+
+
