@@ -16,15 +16,13 @@ void scan_seq(long* prefix_sum, const long* A, long n) {
 void scan_omp(long* prefix_sum, const long* A, long n) {
 
   if (n == 0) return;
-  int number_of_threads = 8; 
+  int number_of_threads = 9; 
   omp_set_num_threads(number_of_threads);
   int part_size; 
-  if((n-1)%number_of_threads == 0)
-    part_size = (n-1)/number_of_threads; 
-  else 
-    part_size = ((n-1)/number_of_threads) + 1; 
+   
+  part_size = ceil((double)n/number_of_threads); 
 
-
+   
   long *offset = (long*) malloc(number_of_threads * sizeof(long)); 
   offset[0] = 0; 
   #pragma omp parallel
