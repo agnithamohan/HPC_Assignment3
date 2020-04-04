@@ -16,7 +16,7 @@ void scan_seq(long* prefix_sum, const long* A, long n) {
 void scan_omp(long* prefix_sum, const long* A, long n) {
 
   if (n == 0) return;
-  int number_of_threads = 9; 
+  int number_of_threads = 4; 
   omp_set_num_threads(number_of_threads);
   int part_size; 
    
